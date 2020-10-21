@@ -2,7 +2,7 @@
 
 namespace Aircompany.Planes
 {
-    public abstract class Plane
+    public class Plane
     {
         public string model;
         public int maxSpeed;

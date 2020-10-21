@@ -33,7 +33,7 @@ namespace Aircompany.Planes
 
         public override string ToString()
         {
-            return base.ToString().Replace("}", ", type=" + militaryType + '}');
+            return base.ToString().Replace("{", ", type=" + militaryType + '}');
         }        
     }
 }

@@ -30,8 +30,7 @@ namespace AircompanyTests.Tests
         [Test]
         public void AirportHasAtLeastOneMilitaryTransportPlane()
         {
-            Assert.IsTrue((new Airport(planes)).GetTransportMilitaryPlanes().ToList().Any(militaryPlane =>
-            militaryPlane.GetPlaneType() == MilitaryType.Transport));
+            Assert.IsTrue((new Airport(planes)).GetTransportMilitaryPlanes().ToList().Any(militaryPlane => militaryPlane.GetPlaneType() == MilitaryType.Transport));
         }
 
 
@@ -39,9 +38,7 @@ namespace AircompanyTests.Tests
         public void CorrectSortedPlanesByMaxLoadCapacity()
         {
             var airport = new Airport(planes);
-            var expectedPlanesCollectionSortedByMaxLoadCapacity = airport.GetPlanes().OrderBy(plane => plane.GetMaxLoadCapacity()).ToList();
-            var airportWithSortedPlanesByMaxLoadCapacity = airport.GetAirportWithSortedPlanesByMaxLoadCapacity();
-            Assert.IsTrue(expectedPlanesCollectionSortedByMaxLoadCapacity.SequenceEqual(airportWithSortedPlanesByMaxLoadCapacity.GetPlanes()));
+            Assert.IsTrue(airport.GetPlanes().OrderBy(plane => plane.GetMaxLoadCapacity()).ToList().SequenceEqual(airport.GetAirportWithSortedPlanesByMaxLoadCapacity().GetPlanes()));
         }
     }
 }

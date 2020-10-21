@@ -31,7 +31,7 @@
        
         public override string ToString()
         {
-            return base.ToString().Replace("}", ", passengersCapacity=" + passengersCapacity + '}');
+            return base.ToString().Replace("{", ", passengersCapacity=" + passengersCapacity + '}');
         }       
         
     }

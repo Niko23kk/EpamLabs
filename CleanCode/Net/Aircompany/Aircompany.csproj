@@ -44,9 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Airport.cs" />
-    <Compile Include="Models\ClassificationLevel.cs" />
+    <Compile Include="Models\ClassificationLevels.cs" />
     <Compile Include="Models\ExperimentalTypes.cs" />
-    <Compile Include="Models\MilitaryType.cs" />
+    <Compile Include="Models\MilitaryTypes.cs" />
     <Compile Include="Planes\MilitaryPlane.cs" />
     <Compile Include="Planes\PassengerPlane.cs" />
     <Compile Include="Planes\Plane.cs" />

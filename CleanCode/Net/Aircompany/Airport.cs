@@ -31,7 +31,7 @@ namespace Aircompany
 
         public IEnumerable<MilitaryPlane> GetTransportMilitaryPlanes()
         {
-            return GetMilitaryPlanes().Where(plane => plane.GetPlaneType() == MilitaryType.Transport);
+            return GetMilitaryPlanes().Where(plane => plane.GetPlaneType() == MilitaryTypes.Transport);
         }
 
         public Airport GetAirportWithSortedPlanesByMaxFlightDistance()

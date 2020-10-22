@@ -4,9 +4,9 @@ namespace Aircompany.Planes
 {
     public class MilitaryPlane : Plane
     {
-        public MilitaryType militaryType;
+        public MilitaryTypes militaryType;
 
-        public MilitaryPlane(string model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, MilitaryType _militaryType)
+        public MilitaryPlane(string model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, MilitaryTypes _militaryType)
             : base(model, maxSpeed, maxFlightDistance, maxLoadCapacity)
         {
             militaryType = _militaryType;
@@ -25,7 +25,7 @@ namespace Aircompany.Planes
             return 1701194404 * coefficient + base.GetHashCode()*coefficient+militaryType.GetHashCode();
         }
 
-        public MilitaryType GetPlaneType()
+        public MilitaryTypes GetPlaneType()
         {
             return militaryType;
         }

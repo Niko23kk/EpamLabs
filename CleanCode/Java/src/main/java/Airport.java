@@ -19,33 +19,39 @@ public class Airport {
     }
 
     public List<PassengerPlane> getPassengerPlanes() {
-        return (List<PassengerPlane>) this.planes.stream().filter(plane->plane instanceof PassengerPlane)
-                .collect(Collectors.toList());
+        List<PassengerPlane> passengerPlanes = new ArrayList<>();
+        this.planes.stream().filter(plane->plane instanceof PassengerPlane).forEach(x->passengerPlanes.add((PassengerPlane)x));
+        return passengerPlanes;
     }
 
     public List<MilitaryPlane> getMilitaryPlanes() {
-        return (List<MilitaryPlane>) this.planes.stream().filter(plane->plane instanceof MilitaryPlane)
-                .collect(Collectors.toList());
+        List<MilitaryPlane> militaryPlanes = new ArrayList<>();
+        this.planes.stream().filter(plane->plane instanceof MilitaryPlane).forEach(x->militaryPlanes.add((MilitaryPlane)x));
+        return militaryPlanes;
     }
 
     public List<ExperimentalPlane> getExperimentalPlanes() {
-        return (List<ExperimentalPlane>) this.planes.stream().filter(plane->plane instanceof ExperimentalPlane)
-                .collect(Collectors.toList());
+        List<ExperimentalPlane> experimentalPlanes = new ArrayList<>();
+        this.planes.stream().filter(plane->plane instanceof ExperimentalPlane).forEach(x->experimentalPlanes.add((ExperimentalPlane)x));
+        return experimentalPlanes;
     }
 
     public PassengerPlane getPassengerPlaneWithMaxPassengersCapacity() {
-        return (PassengerPlane) getPassengerPlanes().stream().sorted(Comparator
-                .comparingInt(PassengerPlane::getPassengersCapacity)).limit(1);
+        List<PassengerPlane> experimentalPlanes = new ArrayList<>();
+        getPassengerPlanes().stream().sorted(Comparator.comparingInt(PassengerPlane::getPassengersCapacity)).forEach(x->experimentalPlanes.add((PassengerPlane) x));
+        return experimentalPlanes.get(0);
     }
 
     public List<MilitaryPlane> getTransportMilitaryPlanes() {
-        return (List<MilitaryPlane>) getMilitaryPlanes().stream()
-                .filter(plane->plane.getType()==MilitaryTypes.TRANSPORT);
+        List<MilitaryPlane> transportMilitaryPlanes = new ArrayList<>();
+        getMilitaryPlanes().stream().filter(plane->plane.getType()==MilitaryTypes.TRANSPORT).forEach(x->transportMilitaryPlanes.add((MilitaryPlane) x));
+        return transportMilitaryPlanes;
     }
 
     public List<MilitaryPlane> getBomberMilitaryPlanes() {
-        return (List<MilitaryPlane>) getMilitaryPlanes().stream()
-                .filter(plane->plane.getType()==MilitaryTypes.BOMBER);
+        List<MilitaryPlane> transportMilitaryPlanes = new ArrayList<>();
+        getMilitaryPlanes().stream().filter(plane->plane.getType()==MilitaryTypes.BOMBER).forEach(x->transportMilitaryPlanes.add((MilitaryPlane) x));
+        return transportMilitaryPlanes;
 
     }
 

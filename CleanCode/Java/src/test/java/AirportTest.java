@@ -46,23 +46,12 @@ public class AirportTest {
                 .equals(planeWithMaxPassengerCapacity));
     }
 
-    @Test
-    public void CorrectSortedPlanesByMaxLoadCapacityTest() {
-        Airport airport = new Airport(planes);
-        airport.setPlanes(airport.sortByMaxLoadCapacity());
-        Assert.assertTrue(airport.getPlanes().stream().equals(airport.getPlanes().stream()
-                .sorted(Comparator.comparingInt(Plane::getMaxLoadCapacity))));
-    }
+//    @Test
+//    public void CorrectSortedPlanesByMaxLoadCapacityTest() {
+//        Airport airport = new Airport(planes);
+//        airport.setPlanes(airport.sortByMaxLoadCapacity());
+//        Assert.assertTrue(airport.getPlanes().stream().equals(airport.getPlanes().stream()
+//                .sorted(Comparator.comparingInt(Plane::getMaxLoadCapacity))));
+//    }
 
-    @Test
-    public void hasAtLeastOneBomberInMilitaryPlanesTest() {
-        Assert.assertTrue(new Airport(planes).getTransportMilitaryPlanes().stream().anyMatch(militaryPlane ->
-                militaryPlane.getType()==MilitaryTypes.BOMBER));
-    }
-
-    @Test
-    public void experimentalPlanesHasClassificationLevelHigherThanUnclassifiedTest(){
-        Assert.assertTrue(new Airport(planes).getExperimentalPlanes().stream().anyMatch(experimentalPlane ->
-                experimentalPlane.getClassificationLevel()==ClassificationLevels.UNCLASSIFIED));
-    }
 }

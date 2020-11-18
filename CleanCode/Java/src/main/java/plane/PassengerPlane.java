@@ -30,7 +30,12 @@ public class PassengerPlane extends Plane{
 
     @Override
     public boolean equals(Object o) {
-        return this==o || (o instanceof PassengerPlane) || !super.equals(o) ||
-                passengersCapacity == ((PassengerPlane) o).passengersCapacity;
+        if (!(o instanceof PassengerPlane)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        return passengersCapacity == ((PassengerPlane) o).passengersCapacity;
     }
 }

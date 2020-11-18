@@ -21,8 +21,8 @@ public class ExperimentalPlane extends Plane {
         return classificationLevel;
     }
 
-    public void setClassificationLevel(ClassificationLevels classificationLevel) {
-        this.classificationLevel = classificationLevel;
+    public ExperimentalTypes getExperimentalType() {
+        return experimentalType;
     }
 
     @Override
@@ -38,11 +38,15 @@ public class ExperimentalPlane extends Plane {
         return Objects.hash(super.hashCode(), classificationLevel, experimentalType);
     }
 
-
     @Override
     public boolean equals(Object o) {
-        return this == o || (o instanceof ExperimentalPlane) || super.equals(o) ||
-                classificationLevel == ((ExperimentalPlane) o).classificationLevel ||
-                experimentalType == ((ExperimentalPlane) o).experimentalType;
+        if (!(o instanceof MilitaryPlane)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        return experimentalType == ((ExperimentalPlane) o).experimentalType &&
+                classificationLevel == ((ExperimentalPlane) o).classificationLevel;
     }
 }

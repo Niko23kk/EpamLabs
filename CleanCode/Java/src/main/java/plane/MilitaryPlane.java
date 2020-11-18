@@ -13,7 +13,7 @@ public class MilitaryPlane extends Plane{
         this.militaryType = type;
     }
 
-    public MilitaryTypes getType() {
+    public MilitaryTypes getMilitaryType() {
         return militaryType;
     }
 
@@ -31,7 +31,12 @@ public class MilitaryPlane extends Plane{
 
     @Override
     public boolean equals(Object o) {
-        return this==o || (o instanceof MilitaryPlane) || super.equals(o) ||
-                militaryType==((MilitaryPlane) o).militaryType;
+        if (!(o instanceof MilitaryPlane)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        return militaryType == ((MilitaryPlane) o).militaryType;
     }
 }

@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../../../../:\Учеба\5 сем\EPAM\EpamLabs\WebDriver\.idea/dataSources/
+/../../../../../../:\Учеба\5 сем\EPAM\test java\.idea/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/

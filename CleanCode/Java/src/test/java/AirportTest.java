@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 import plane.MilitaryPlane;
 import plane.PassengerPlane;
 import plane.Plane;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -37,21 +36,55 @@ public class AirportTest {
     @Test
     public void airportHasAtLeastOneTransportMilitaryPlanesTest() {
         Assert.assertTrue(new Airport(planes).getTransportMilitaryPlanes().stream().anyMatch(militaryPlane ->
-                militaryPlane.getType()==MilitaryTypes.TRANSPORT));
+                militaryPlane.getMilitaryType()==MilitaryTypes.TRANSPORT));
+    }
+
+    @Test
+    public void airportHasAtLeastOneBomberMilitaryPlanesTest() {
+        Assert.assertTrue(new Airport(planes).getBomberMilitaryPlanes().stream().anyMatch(militaryPlane ->
+                militaryPlane.getMilitaryType()==MilitaryTypes.BOMBER));
+    }
+
+    @Test
+    public void airportHasAtLeastOneFighterMilitaryPlanesTest() {
+        Assert.assertTrue(new Airport(planes).getFighterMilitaryPlanes().stream().anyMatch(militaryPlane ->
+                militaryPlane.getMilitaryType()==MilitaryTypes.FIGHTER));
     }
 
     @Test
     public void getPassengerPlaneWithMaxCapacityTest() {
-        Assert.assertTrue(new Airport(planes).getPassengerPlaneWithMaxPassengersCapacity()
-                .equals(planeWithMaxPassengerCapacity));
+        Assert.assertEquals(new Airport(planes).getPassengerPlaneWithMaxPassengersCapacity(),planeWithMaxPassengerCapacity);
     }
 
-//    @Test
-//    public void CorrectSortedPlanesByMaxLoadCapacityTest() {
-//        Airport airport = new Airport(planes);
-//        airport.setPlanes(airport.sortByMaxLoadCapacity());
-//        Assert.assertTrue(airport.getPlanes().stream().equals(airport.getPlanes().stream()
-//                .sorted(Comparator.comparingInt(Plane::getMaxLoadCapacity))));
-//    }
+    @Test
+    public void CorrectSortedPlanesByMaxLoadCapacityTest() {
+        Airport airport = new Airport(planes);
+        airport.setPlanes(airport.sortByMaxLoadCapacity());
 
+        boolean nextPlaneMaxLoadCapacityIsHigherThanCurrent = true;
+
+        for (int i = 0; i < airport.getPlanes().size() - 1; i++) {
+            if (airport.getPlanes().get(i).getMaxLoadCapacity() > airport.getPlanes().get(i + 1).getMaxLoadCapacity()) {
+                nextPlaneMaxLoadCapacityIsHigherThanCurrent = false;
+                break;
+            }
+        }
+        Assert.assertTrue(nextPlaneMaxLoadCapacityIsHigherThanCurrent);
+    }
+
+    @Test
+    public void CorrectSortedPlanesByMaxFlightDistanceTest() {
+        Airport airport = new Airport(planes);
+        airport.setPlanes(airport.sortByMaxDistance());
+
+        boolean nextPlaneMaxLoadCapacityIsHigherThanCurrent = true;
+
+        for (int i = 0; i < airport.getPlanes().size() - 1; i++) {
+            if (airport.getPlanes().get(i).getMaxFlightDistance() > airport.getPlanes().get(i + 1).getMaxFlightDistance()) {
+                nextPlaneMaxLoadCapacityIsHigherThanCurrent = false;
+                break;
+            }
+        }
+        Assert.assertTrue(nextPlaneMaxLoadCapacityIsHigherThanCurrent);
+    }
 }

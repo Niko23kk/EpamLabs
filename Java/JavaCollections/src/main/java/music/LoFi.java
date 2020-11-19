@@ -6,6 +6,6 @@ public class LoFi extends Music{
     }
 
     public void play(){
-        super.play("Rap");
+        super.play("LoFi");
     }
 }

@@ -6,6 +6,6 @@ public class Rock extends Music {
     }
 
     public void play(){
-        super.play("Rap");
+        super.play("Rock");
     }
 }

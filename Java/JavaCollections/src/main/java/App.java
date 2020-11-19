@@ -11,6 +11,8 @@ public class App {
     public static void main(String[] args) {
 
         OptionalTask.firstTask();
+        OptionalTask.secondTask();
+        OptionalTask.sevenTask();
 
         Rap panicAttack = new Rap(2.5f, "Panic attack", "Rocket");
         LoFi bit = new LoFi(5f, "Kakoy-to nit", "Bitmaker");
@@ -73,7 +75,7 @@ public class App {
                 case 5:
                     System.out.println("Enter the duration and after the name of audio with the name of band through enter");
                     try {
-                        top5SongChart.add(new Music(scanner.nextInt(), scanner.next(),scanner.next()));
+                        top5SongChart.add(new Music(scanner.nextFloat(), scanner.next(),scanner.next()));
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -81,7 +83,7 @@ public class App {
                 case 6:
                     System.out.println("Enter the duration and after the name of audio with the name of band through enter");
                     try {
-                        top5SongChart.add(new LoFi(scanner.nextInt(), scanner.next(),scanner.next()));
+                        top5SongChart.add(new LoFi(scanner.nextFloat(), scanner.next(),scanner.next()));
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -89,7 +91,7 @@ public class App {
                 case 7:
                     System.out.println("Enter the duration and after the name of audio with the name of band through enter");
                     try {
-                        top5SongChart.add(new Rap(scanner.nextInt(), scanner.next(), scanner.next()));
+                        top5SongChart.add(new Rap(scanner.nextFloat(), scanner.next(), scanner.next()));
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -97,7 +99,7 @@ public class App {
                 case 8:
                     System.out.println("Enter the duration and after the name of audio with the name of band through enter");
                     try {
-                        top5SongChart.add(new Rock(scanner.nextInt(), scanner.next(), scanner.next()));
+                        top5SongChart.add(new Rock(scanner.nextFloat(), scanner.next(), scanner.next()));
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }

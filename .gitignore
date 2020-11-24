@@ -2,7 +2,7 @@
 *.log
 /target
 /bin
-/results
+/**/results
 /**/.idea
 /**/out
 /**/*.iml

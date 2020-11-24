@@ -15,7 +15,7 @@ public class MainWebDriver {
     public void сheckWorkSaleOfPromoCodes() {
         WebDriver driver = new ChromeDriver();
 
-        driver.get("https://vans.ru/catalog/item/41979-kedy-flame-old-skool.html");
+        driver.get("https://vans.ru/catalog/item/42048-kedy-japanese-type-era.html");
 
         WebElement addProductToOrderButton = (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.presenceOfElementLocated(By

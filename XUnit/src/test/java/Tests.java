@@ -15,57 +15,57 @@ public class Tests {
     }
 
     @Test(dataProvider = "DataTwoValuesTest")
-    public void SumOfTwoValuesTest(double x,double y) {
+    public void sumOfTwoValuesTest(double x,double y) {
         Assert.assertEquals(x+y, MathMethods.sumOfTwoValues(x, y), 0.00001);
     }
 
     @Test(dataProvider = "DataTwoValuesTest")
-    public void DifferenceOfTwoValuesTest(double x,double y) {
+    public void differenceOfTwoValuesTest(double x,double y) {
         Assert.assertEquals(x-y, MathMethods.differenceBetweenTwoValues(x, y), 0.00001);
     }
 
     @Test(dataProvider = "DataTwoValuesTest")
-    public void MultiplyTwoValuesTest(double x,double y) {
+    public void multiplyTwoValuesTest(double x,double y) {
         Assert.assertEquals(x*y, MathMethods.multiplyTwoValues(x, y), 0.00001);
     }
 
     @Test(dataProvider = "DataTwoValuesTest")
-    public void DivisionOfTwoPositiveValuesTest(double x,double y) {
+    public void divisionOfTwoPositiveValuesTest(double x,double y) {
         Assert.assertEquals(x/y, MathMethods.divisionOfTwoValues(x, y), 0.00001);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void DivideByZeroTest() {
+    public void divideByZeroTest() {
         MathMethods.divisionOfTwoValues(1, 0);
     }
 
     @Test
-    public void ModuloOfTwoValuesTest() {
+    public void moduloOfTwoValuesTest() {
         Assert.assertEquals(1, MathMethods.moduloOfTwoValues(25, 4), 0.00001);
     }
 
     @Test
-    public void SquaringOfNegativeValueTest() {
+    public void squaringOfNegativeValueTest() {
         Assert.assertEquals(625, MathMethods.squaringValue(-25), 0.00001);
     }
 
     @Test(dataProvider = "TrigonometryOperationData")
-    public void SinValueTest(double value) {
+    public void sinValueTest(double value) {
         Assert.assertEquals(Math.sin(value), MathMethods.sinOfValue(value), 0.01);
     }
 
     @Test(dataProvider = "TrigonometryOperationData")
-    public void СosValueTest( double value) {
+    public void cosValueTest( double value) {
         Assert.assertEquals(Math.cos(value), MathMethods.cosOfValue(value), 0.01);
     }
 
     @Test(dataProvider = "TrigonometryOperationData")
-    public void TanValueTest(double value) {
+    public void tanValueTest(double value) {
         Assert.assertEquals(Math.tan(value), MathMethods.tanOfValue(value), 0.01);
     }
 
     @Test(dataProvider = "TrigonometryOperationData")
-    public void CtanValueTest(double value) {
+    public void ctanValueTest(double value) {
         Assert.assertEquals(Math.tan(1/value), MathMethods.ctanOfValue(value), 0.01);
     }
 }

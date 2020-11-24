@@ -1,4 +1,12 @@
-*.log
 *.db
-bin
-target
+*.log
+/target
+/bin
+/**/.idea
+/**/out
+/**/*.iml
+/**/.idea
+/**/out
+/**/*.iml
+/**/target
+*.swp

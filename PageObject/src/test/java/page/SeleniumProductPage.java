@@ -11,16 +11,15 @@ import org.testng.annotations.Test;
 
 public class SeleniumProductPage extends AbstractPage {
 
-    @Override
-    public AbstractPage openPage()
-    {
-        driver.get("https://vans.ru/catalog/item/42048-kedy-japanese-type-era.html");
-        return  this;
-    }
-
     public SeleniumProductPage(WebDriver driver)
     {
         super(driver);
+    }
+
+    public SeleniumProductPage openPage()
+    {
+        driver.get("https://vans.ru/catalog/item/42048-kedy-japanese-type-era.html");
+        return  this;
     }
 
     public SeleniumProductPage addProductToOrder()

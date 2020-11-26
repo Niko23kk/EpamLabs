@@ -5,15 +5,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 public class MainWebDriver {
 
-    private String promoCode="CP-4MDYA-4QEKDOC";
+    private WebDriver driver;
+    private String promoCode = "CP-4MDYA-4QEKDOC";
 
     @Test
     public void сheckWorkSaleOfPromoCodes() {
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
 
         driver.get("https://vans.ru/catalog/item/42048-kedy-japanese-type-era.html");
 
@@ -49,7 +52,14 @@ public class MainWebDriver {
                 .until(ExpectedConditions.presenceOfElementLocated(By
                         .xpath("//div[@class='b-make-order']//span[@class='b-input-with-btn__error' and text()='применен']")));
 
-        Assert.assertTrue(orderPrice.getText().replaceAll("[^\\d.]", "").equals(
-                Integer.toString(Integer.parseInt(orderSale.getText().replaceAll("[^\\d.]","")) * 10)));
+        Assert.assertEquals(orderPrice.getText().replaceAll("[^\\d.]", ""),
+                Integer.toString(Integer.parseInt(orderSale.getText().replaceAll("[^\\d.]", "")) * 10));
+
     }
+
+    @AfterMethod(alwaysRun = true)
+    public void browserTearDown() {
+        driver.quit();
+    }
+
 }

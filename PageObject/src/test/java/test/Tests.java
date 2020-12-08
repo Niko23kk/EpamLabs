@@ -33,6 +33,23 @@ public class Tests {
         Assert.assertEquals(orderPage.getOrderPriceValue()*procentSale, orderPage.getOrderSaleValue() * 100);
     }
 
+    @Test
+    public void checkValidationNumbderPhone() {
+        OrderPage orderPage = new ProductPage(driver)
+                .openPage(partUrlPageWithProduct)
+                .addProductToOrder()
+                .goToOrderPage()
+                .openPage()
+                .inputPhoneNumber(phoneNumber)
+                .clickEmail();
+
+        Assert.assertEquals(orderPage.getEmailErrorSpan(), "Введите телефон");
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void browserTearDown() {
+        driver.manage().deleteAllCookies();
+    }
 
     @AfterTest
     public void quiteBrowserAfterTest() {

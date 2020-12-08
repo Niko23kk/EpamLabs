@@ -19,19 +19,6 @@ public class Tests {
     }
 
     @Test
-    public void checkCorrectSaleWithPromocode() {
-        OrderPage orderPage = new ProductPage(driver)
-                .openPage(partUrlPageWithProduct)
-                .addProductToOrder()
-                .goToOrderPage()
-                .openPage()
-                .inputSalePromocode(promoCode)
-                .confirmSalePromocode();
-
-        Assert.assertEquals(Math.floor(orderPage.getOrderPriceValue()*0.1), orderPage.getOrderSaleValue());
-    }
-
-    @Test
     public void checkValidationNumberPhone() {
         OrderPage orderPage = new ProductPage(driver)
                 .openPage(partUrlPageWithProduct)
@@ -44,12 +31,26 @@ public class Tests {
         Assert.assertEquals(orderPage.getEmailErrorSpan(), "Введите телефон");
     }
 
+    @Test
+    public void checkCorrectSaleWithPromocode() {
+        int percentSale=10;
+        OrderPage orderPage = new ProductPage(driver)
+                .openPage(partUrlPageWithProduct)
+                .addProductToOrder()
+                .goToOrderPage()
+                .openPage()
+                .inputSalePromocode(promoCode)
+                .confirmSalePromocode();
+
+        Assert.assertEquals(orderPage.getOrderPriceValue()*percentSale, orderPage.getOrderSaleValue() * 100);
+    }
+
     @AfterMethod(alwaysRun = true)
     public void browserTearDown() {
         driver.manage().deleteAllCookies();
     }
 
-    @AfterTest(alwaysRun = true)
+    @AfterTest
     public void quiteBrowserAfterTest() {
         driver.quit();
     }

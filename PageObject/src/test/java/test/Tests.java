@@ -29,7 +29,6 @@ public class Tests {
                 .inputSalePromocode(promoCode)
                 .confirmSalePromocode();
 
-        Assert.assertTrue(orderPage.checkCorrectSale());
         Assert.assertEquals(orderPage.getOrderPriceValue()*procentSale, orderPage.getOrderSaleValue() * 100);
     }
 

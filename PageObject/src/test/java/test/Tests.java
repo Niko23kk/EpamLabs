@@ -20,7 +20,6 @@ public class Tests {
 
     @Test
     public void checkCorrectSaleWithPromocode() {
-        int procentSale=10;
         OrderPage orderPage = new ProductPage(driver)
                 .openPage(partUrlPageWithProduct)
                 .addProductToOrder()
@@ -29,7 +28,7 @@ public class Tests {
                 .inputSalePromocode(promoCode)
                 .confirmSalePromocode();
 
-        Assert.assertEquals(orderPage.getOrderPriceValue()*procentSale, orderPage.getOrderSaleValue() * 100);
+        Assert.assertEquals(Math.floor(orderPage.getOrderPriceValue()*0.1), orderPage.getOrderSaleValue());
     }
 
     @Test
@@ -50,7 +49,7 @@ public class Tests {
         driver.manage().deleteAllCookies();
     }
 
-    @AfterTest
+    @AfterTest(alwaysRun = true)
     public void quiteBrowserAfterTest() {
         driver.quit();
     }

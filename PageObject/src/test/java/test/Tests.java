@@ -51,8 +51,4 @@ public class Tests {
         driver.manage().deleteAllCookies();
     }
 
-    @AfterTest
-    public void quiteBrowserAfterTest() {
-        driver.quit();
-    }
 }

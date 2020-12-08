@@ -13,13 +13,14 @@ public class Tests {
     private final String promoCode="CP-4MDYA-4QEKDOC";
     private final String phoneNumber ="173";
 
-    @BeforeTest
+    @BeforeMethod
     public void browserStart() {
-        driver = new ChromeDriver();
     }
 
     @Test
     public void checkCorrectSaleWithPromocode() {
+        driver = new ChromeDriver();
+
         int procentSale=10;
         OrderPage orderPage = new ProductPage(driver)
                 .openPage(partUrlPageWithProduct)
@@ -31,10 +32,13 @@ public class Tests {
 
         Assert.assertTrue(orderPage.checkCorrectSale());
         Assert.assertEquals(orderPage.getOrderPriceValue()*procentSale, orderPage.getOrderSaleValue() * 100);
+        driver.manage().deleteAllCookies();
     }
 
     @Test
     public void checkValidationNumbderPhone() {
+        driver = new ChromeDriver();
+
         OrderPage orderPage = new ProductPage(driver)
                 .openPage(partUrlPageWithProduct)
                 .addProductToOrder()
@@ -44,11 +48,12 @@ public class Tests {
                 .clickEmail();
 
         Assert.assertEquals(orderPage.getEmailErrorSpan(), "Введите телефон");
+        driver.manage().deleteAllCookies();
     }
 
     @AfterMethod(alwaysRun = true)
     public void browserTearDown() {
-        driver.manage().deleteAllCookies();
+
     }
 
     @AfterTest

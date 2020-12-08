@@ -7,16 +7,22 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class MainWebDriver {
 
     private WebDriver driver;
     private String promoCode = "CP-4MDYA-4QEKDOC";
+    private int percentSale=10;
+
+    @BeforeMethod(alwaysRun = true)
+    public void browserStart() {
+        driver = new ChromeDriver();
+    }
 
     @Test
     public void сheckWorkSaleOfPromoCodes() {
-        driver = new ChromeDriver();
 
         driver.get("https://vans.ru/catalog/item/42048-kedy-japanese-type-era.html");
 
@@ -48,8 +54,8 @@ public class MainWebDriver {
         WebElement checkPromoCode = waitWebElementLocatedBy(driver, By
                         .xpath("//div[@class='b-make-order']//span[@class='b-input-with-btn__error' and text()='применен']"));
 
-        Assert.assertEquals(orderPrice.getText().replaceAll("[^\\d.]", ""),
-                Integer.toString(Integer.parseInt(orderSale.getText().replaceAll("[^\\d.]", "")) * 10));
+        Assert.assertEquals(Integer.parseInt(orderPrice.getText().replaceAll("[^\\d.]", ""))*percentSale,
+                Integer.parseInt(orderSale.getText().replaceAll("[^\\d.]", "")) * 100);
 
     }
 

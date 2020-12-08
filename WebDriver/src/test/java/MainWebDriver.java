@@ -20,37 +20,33 @@ public class MainWebDriver {
 
         driver.get("https://vans.ru/catalog/item/42048-kedy-japanese-type-era.html");
 
-        WebElement addProductToOrderButton = (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.presenceOfElementLocated(By
-                        .xpath("//div[@class='product__content']//button[contains(@class,'mod-5')]")));
+        WebElement addProductToOrderButton = waitWebElementLocatedBy(driver,By
+                        .xpath("//div[@class='product__content']//button[contains(@class,'mod-5')]"));
 
         addProductToOrderButton.click();
 
-        driver.get("https://vans.ru/checkout/order/");
+        WebElement goToOrderButton = driver.findElement(By.xpath("//li[@class='top-nav__item mod-basket']"));
 
-        WebElement promoCodeInput = (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.presenceOfElementLocated(By
-                        .xpath("//div[@class='b-input-with-btn__content']//input[@class='b-input-with-btn__input']")));
+        goToOrderButton.click();
 
-        WebElement promoCodeButton = (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.presenceOfElementLocated(By
-                        .xpath("//div[@class='b-input-with-btn__content']//button[@class='b-input-with-btn__btn']")));
+        WebElement promoCodeInput = waitWebElementLocatedBy(driver,By
+                        .xpath("//div[@class='b-input-with-btn__content']//input[@class='b-input-with-btn__input']"));
+
+        WebElement promoCodeButton = driver.findElement(By
+                        .xpath("//div[@class='b-input-with-btn__content']//button[@class='b-input-with-btn__btn']"));
 
         promoCodeInput.sendKeys(promoCode);
 
         promoCodeButton.click();
 
-        WebElement orderPrice = (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.presenceOfElementLocated(By
-                        .xpath("//div[@class='b-make-order__price']//span[@class='b-make-order__price-value']")));
+        WebElement orderPrice = driver.findElement(By
+                        .xpath("//div[@class='b-make-order__price']//span[@class='b-make-order__price-value']"));
 
-        WebElement orderSale = (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.presenceOfElementLocated(By
-                        .xpath("//div[contains(@class,'b-make-order__price-sale')]//span[@class='b-make-order__price-value']")));
+        WebElement orderSale = driver.findElement(By
+                        .xpath("//div[contains(@class,'b-make-order__price-sale')]//span[@class='b-make-order__price-value']"));
 
-        WebElement checkPromoCode = (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.presenceOfElementLocated(By
-                        .xpath("//div[@class='b-make-order']//span[@class='b-input-with-btn__error' and text()='применен']")));
+        WebElement checkPromoCode = waitWebElementLocatedBy(driver, By
+                        .xpath("//div[@class='b-make-order']//span[@class='b-input-with-btn__error' and text()='применен']"));
 
         Assert.assertEquals(orderPrice.getText().replaceAll("[^\\d.]", ""),
                 Integer.toString(Integer.parseInt(orderSale.getText().replaceAll("[^\\d.]", "")) * 10));
@@ -60,6 +56,12 @@ public class MainWebDriver {
     @AfterMethod(alwaysRun = true)
     public void browserTearDown() {
         driver.quit();
+    }
+
+    public static WebElement waitWebElementLocatedBy(WebDriver driver, By by)
+    {
+        return (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
 }

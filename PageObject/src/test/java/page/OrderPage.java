@@ -60,7 +60,7 @@ public class OrderPage extends AbstractPageWithStaticUrl {
 
     public boolean checkCorrectSale() {
         try {
-            WebElement checkPromoCode = WaitWebElement.waitWebElementLocatedBy(driver, By
+            WaitWebElement.waitWebElementLocatedBy(driver, By
                     .xpath("//div[@class='b-make-order']//span[@class='b-input-with-btn__error' and text()='применен']"));
             return true;
         }

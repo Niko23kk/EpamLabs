@@ -5,9 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Test;
-import org.testng.reporters.jq.Main;
-import service.UserCreator;
 
 public class LoginPage extends AbstractPageWithStaticUrl{
 
@@ -33,14 +30,6 @@ public class LoginPage extends AbstractPageWithStaticUrl{
     {
         driver.navigate().to(BASE_URL);
         return this;
-    }
-
-    public CustomerPage login(User user)
-    {
-        inputLogin.sendKeys(user.getUsername());
-        inputPassword.sendKeys(user.getPassword());
-        buttonSubmit.click();
-        return new CustomerPage(driver);
     }
 
 }

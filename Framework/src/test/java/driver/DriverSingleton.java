@@ -8,28 +8,24 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class DriverSingleton {
     private static WebDriver driver;
 
-//    private DriverSingleton(){}
-//
-//    public static WebDriver getDriver(){
-//        if(driver==null)
-//        {
-//            System.out.println(System.getProperty("browser").toString());
-//            switch (System.getProperty("browser").toString()) {
-//                case "firefox": {
-//                    WebDriverManager.firefoxdriver().setup();
-//                    driver = new FirefoxDriver();
-//                }
-//                default: {
-//                    WebDriverManager.chromedriver().setup();
-//                    driver = new ChromeDriver();
-//                }
-//            }
-//        }
-//        return driver;
-//    }
-//
-//    public static void closeDriver(){
-//        driver.quit();
-//        driver=null;
-//    }
+    private DriverSingleton(){}
+
+    public static WebDriver getDriver(){
+        if(driver==null)
+        {
+
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver();
+        }
+        return driver;
+    }
+
+    public static void deleteAllCookies(){
+        driver.manage().deleteAllCookies();
+    }
+
+    public static void closeDriver(){
+        driver.quit();
+        driver=null;
+    }
 }

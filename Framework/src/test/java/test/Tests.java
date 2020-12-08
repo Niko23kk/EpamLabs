@@ -3,24 +3,16 @@ package test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
-import org.testng.reporters.jq.Main;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 import page.CatalogPage;
 import page.FavoritePage;
 import page.OrderPage;
 import page.ProductPage;
 
 public class Tests extends CommonConditions {
-    private WebDriver driver;
-    private String partUrlPageWithProduct = "42048-kedy-japanese-type-era.html";
-    private String promoCode = "CP-4MDYA-4QEKDOC";
-    private String phoneNumber = "173";
-    private String email = "ага@mail.ru";
-
-    @BeforeTest
-    public void browserStart() {
-        driver = new ChromeDriver();
-    }
 
     @Test
     public void checkValidationUncorrectEmailInFastOrder() {
@@ -48,7 +40,7 @@ public class Tests extends CommonConditions {
     }
 
     @Test
-    public void checkCorrectFilterByPrice() {
+    public void checkCorrectFilterByCategory() {
         boolean result = new CatalogPage(driver)
                 .openPage("men/")
                 .chooseCategoryProduct("Бумажники")
@@ -149,15 +141,5 @@ public class Tests extends CommonConditions {
 
         Assert.assertTrue(orderPage.checkCorrectSale());
         Assert.assertEquals(Math.floor(orderPage.getOrderPriceValue()*0.1), orderPage.getOrderSaleValue());
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void browserTearDown() {
-        driver.manage().deleteAllCookies();
-    }
-
-    @AfterTest
-    public void quiteBrowserAfterTest() {
-       driver.quit();
     }
 }

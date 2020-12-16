@@ -1,33 +1,40 @@
 package test;
 
 import driver.DriverSingleton;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
+import service.TestDataReader;
+import util.TestListener;
 
+import java.util.List;
+
+@Listeners(TestListener.class)
 public class CommonConditions {
     protected WebDriver driver;
-    protected String partUrlPageWithProduct = "42048-kedy-japanese-type-era.html";
-    protected String promoCode = "CP-4MDYA-4QEKDOC";
-    protected String phoneNumber = "173";
-    protected String email = "ага@mail.ru";
+    protected float percentPromocodeSale= Float.parseFloat(TestDataReader.getTestData("test.data.promocode.discount"));
+    protected float percentBuyCartSale=Float.parseFloat(TestDataReader.getTestData("test.data.discountformoresale"));
+    protected String promoCode = TestDataReader.getTestData("test.data.promocode.code");
 
-    @BeforeTest
-    public void browserStart() {
+    @BeforeMethod
+    protected void browserStart() {
         driver = DriverSingleton.getDriver();
     }
 
     @AfterMethod(alwaysRun = true)
-    public void browserTearDown() {
+    protected void browserTearDown() {
         DriverSingleton.deleteAllCookies();
     }
 
     @AfterTest
-    public void quiteBrowserAfterTest() {
+    protected void quiteBrowserAfterTest() {
         DriverSingleton.closeDriver();
+    }
+
+    public SoftAssertions generateSoftAssertionWithContains(List<String> collection, String contains){
+        SoftAssertions softAssertions=new SoftAssertions();
+        collection.stream().forEach(element->softAssertions.assertThat(element.contains(contains)));
+        return softAssertions;
     }
 
 }

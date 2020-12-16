@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class ProductPage extends AbstractPageWithParameterizedUrl {
 
     @FindBy(xpath = "//div[@class='product__content']//button[contains(@class,'mod-5')]")
@@ -62,7 +64,7 @@ public class ProductPage extends AbstractPageWithParameterizedUrl {
         return this;
     }
 
-    public ProductPage makeFastOrder() {
+    public ProductPage clickButtonToMakeFastOrder() {
         forFastOrderingButton.click();
         return this;
     }
@@ -72,7 +74,7 @@ public class ProductPage extends AbstractPageWithParameterizedUrl {
         return this;
     }
 
-    public ProductPage makeOrder() {
+    public ProductPage clickToMakeOrderButton() {
         toMakeOrderButton.click();
         return this;
     }
@@ -80,6 +82,15 @@ public class ProductPage extends AbstractPageWithParameterizedUrl {
     public ProductPage addToFavorite() {
         addToFavoriteButton.click();
         return this;
+    }
+
+    public boolean isFavoriteProduct(){
+        waitWebElementLocatedBy(By.xpath("//i[@class='icon-heart']"));
+        return driver.findElements(By.xpath("//i[@class='icon-heart']")).size()>0;
+    }
+
+    public boolean fastOrderIsCorrect(){
+        return !driver.findElements(By.xpath("//div[@class='fastorder-popup']//h2[text()='Спасибо!']")).isEmpty();
     }
 
     public OrderPage goToOrderPage(){

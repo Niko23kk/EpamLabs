@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 public class FavoritePage extends AbstractPageWithStaticUrl{
 
     @FindBy(xpath = "//a[@class='main-nav__head-link js-nav-item-link mod-user-link']//span[@class='js-wishlist-count']")
-    public WebElement numberOfFavoriteProduct;
+    private WebElement numberOfFavoriteProduct;
 
     public FavoritePage(WebDriver driver){
         super(driver);

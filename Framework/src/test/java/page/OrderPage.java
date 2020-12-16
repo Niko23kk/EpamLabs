@@ -5,7 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import wait.WaitWebElement;
+
+import java.util.List;
 
 public class OrderPage extends AbstractPageWithStaticUrl {
 
@@ -15,22 +16,22 @@ public class OrderPage extends AbstractPageWithStaticUrl {
     @FindBy(xpath = "//div[@class='b-input-with-btn__content']//button[@class='b-input-with-btn__btn']")
     private WebElement promoCodeButton;
 
-    @FindBy(xpath = "//div[@class='b-user-info__fields']//div[contains(@class,'b-input-field')][1]//input")
+    @FindBy(xpath = "//span[@class='b-input-field__label' and text()='Ваше имя']/..//input")
     private WebElement nameInput;
 
-    @FindBy(xpath = "//div[@class='b-user-info__fields']//div[contains(@class,'b-input-field')][2]//input")
+    @FindBy(xpath = "//span[@class='b-input-field__label' and text()='Ваша фамилия']/..//input")
     private WebElement surnameInput;
 
-    @FindBy(xpath = "//div[@class='b-user-info__fields']//div[contains(@class,'b-input-field')][3]//input")
+    @FindBy(xpath = "//div[@class='b-user-info__fields']//input[contains(@class,'b-input-tel')]")
     private WebElement phoneNumberInput;
 
-    @FindBy(xpath = "//div[@class='b-user-info__fields']//div[contains(@class,'b-input-field')][4]//input")
+    @FindBy(xpath = "//span[@class='b-input-field__label' and text()='Email']/..//input")
     private WebElement emailInput;
 
-    @FindBy(xpath = "//div[@class='b-user-info__fields']//div[contains(@class,'b-input-field')][5]//input")
+    @FindBy(xpath = "//span[@class='b-input-field__label' and text()='Город']/..//input")
     private WebElement cityInput;
 
-    @FindBy(xpath = "//div[@class='b-user-info__fields']//div[contains(@class,'b-input-field')][6]//input")
+    @FindBy(xpath = "//span[@class='b-input-field__label' and text()='Почтовый индекс']/..//input")
     private WebElement postcodeInput;
 
     @FindBy(xpath = "//div[@class='b-make-order__price']//span[@class='b-make-order__price-value']")
@@ -42,8 +43,8 @@ public class OrderPage extends AbstractPageWithStaticUrl {
     @FindBy(xpath = "//div[@class='b-make-order__price b-make-order__price-delivery']//span[@class='b-make-order__price-value']")
     private WebElement orderDeliveryValue;
 
-    @FindBy(xpath = "//span[@class='b-input-field__error']")
-    private WebElement emailErrorSpan;
+    @FindBy(xpath = "//span[@class='b-input-field__label']/..//span[@class='b-input-field__error']")
+    private WebElement phoneNumberErrorSpan;
 
     @FindBy(xpath = "//div[@class='b-card-payment'][2]")
     private WebElement paymentByCardButton;
@@ -72,30 +73,25 @@ public class OrderPage extends AbstractPageWithStaticUrl {
 
     public OrderPage confirmSalePromocode() {
         promoCodeButton.click();
+        waitWebElementInvisibilityOf(loadingPlaceholder);
         return this;
     }
 
     public int getOrderPriceValue() {
-        return Integer.parseInt(orderPriceValue.getText().replaceAll("[^\\d.]", ""));
+        return getIntByWebElementText(orderPriceValue);
     }
 
     public int getOrderSaleValue() {
-        return Integer.parseInt(orderSaleValue.getText().replaceAll("[^\\d.]", ""));
+        return getIntByWebElementText(orderSaleValue);
     }
 
     public int getOrderDeliveryValue() {
-        return Integer.parseInt(orderDeliveryValue.getText().replaceAll("[^\\d.]", ""));
+        return getIntByWebElementText(orderDeliveryValue);
     }
 
     public boolean checkCorrectSale() {
-        try {
-            WebElement checkPromoCode = WaitWebElement.waitWebElementLocatedBy(driver, By
-                    .xpath("//div[@class='b-make-order']//span[@class='b-input-with-btn__error' and text()='применен']"));
-            return true;
-        }
-        catch (Exception e){
-            return false;
-        }
+        return !driver.findElements(By.xpath("//div[@class='b-make-order']//span[@class='b-input-with-btn__error'" +
+                " and text()='применен']")).isEmpty();
     }
 
     public OrderPage inputName(String name) {
@@ -119,21 +115,18 @@ public class OrderPage extends AbstractPageWithStaticUrl {
     }
 
     public OrderPage inputCity(String city) {
-        //cityInput.sendKeys(city);
-        for (char t:city.toCharArray()){
-            cityInput.sendKeys(new String(""+t));
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        cityInput.sendKeys(city.substring(0,2));
+
+        for (int i=2;i<city.length();i++){
+            cityInput.sendKeys(city.charAt(i)+"");
+            waitWebElementLocatedBy(By.xpath("//ul[contains(@class,'b-input-select__list')]//li"));
         }
         return this;
     }
 
-    public OrderPage selectCityFromList(int select){
-        driver.findElement(By.xpath("//ul[contains(@class,'b-input-select__list')][1]//li["+select+"]")).click();
-        WaitWebElement.waitWebElementInvisibilityOf(driver,loadingPlaceholder);
+    public OrderPage selectCityFromList(String city){
+        waitWebElementLocatedBy(By.xpath("//ul[contains(@class,'b-input-select__list')][1]//li[text()='"+city+"']")).click();
+        waitWebElementInvisibilityOf(loadingPlaceholder);
         return this;
     }
 
@@ -149,30 +142,33 @@ public class OrderPage extends AbstractPageWithStaticUrl {
 
     public OrderPage clickPaymentByCard(){
         paymentByCardButton.click();
-        WaitWebElement.waitWebElementInvisibilityOf(driver,loadingPlaceholder);
+        waitWebElementInvisibilityOf(loadingPlaceholder);
         return this;
     }
 
     public OrderPage clickPostOfRussianButton(){
         postOfRussianButton.click();
-        WaitWebElement.waitWebElementInvisibilityOf(driver,loadingPlaceholder);
+        waitWebElementInvisibilityOf(loadingPlaceholder);
         return this;
     }
 
-    public OrderPage selectCountForProduct(int numberOfProduct,int count){
-        driver.findElement(By.xpath("//select[@class='b-input b-input-select'][%numberOfProduct - 1%]" +
-                "//option[@class='b-input-select__option'][%count%]"));
+    public OrderPage changeCountOfProduct(String productUrl,int countProduct){
+        driver.findElement(By.xpath(String.format("//a[contains(@href,'%s')]/../..//select" +
+                "//option[@class='b-input-select__option'][%d]",productUrl,countProduct))).click();
+        waitWebElementInvisibilityOf(loadingPlaceholder);
         return this;
     }
 
-    public OrderPage changeCountOfProduct(int orderProduct,int countProduct){
-        driver.findElement(By.xpath(String.format("//div[@class='b-order-product'][%d]" +
-                "//option[@class='b-input-select__option'][%d]",orderProduct,countProduct))).click();
-        WaitWebElement.waitWebElementInvisibilityOf(driver,loadingPlaceholder);
-        return this;
+    public int getSumAllProductPrice(){
+        List<WebElement> allPrice=driver.findElements(By.xpath("//span[@class='b-order-product__price-current']//span[1]"));
+        return allPrice.stream().mapToInt(element -> getIntByWebElementText(element)).sum();
     }
 
-    public String getEmailErrorSpan() {
-         return emailErrorSpan.getText();
+    public String getPhoneNumberErrorSpan() {
+         return phoneNumberErrorSpan.getText();
+    }
+
+    private int getIntByWebElementText(WebElement webElement){
+        return Integer.parseInt(webElement.getText().replaceAll("[^\\d.]", ""));
     }
 }

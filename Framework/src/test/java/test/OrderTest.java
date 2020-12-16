@@ -1,19 +1,14 @@
 package test;
 
 import static org.assertj.core.api.Assertions.*;
-import cucumber.api.CucumberOptions;
-import cucumber.api.SnippetType;
-import cucumber.api.junit.Cucumber;
 import model.Product;
 import model.User;
-import org.junit.runner.RunWith;
 import org.testng.annotations.Test;
 import page.OrderPage;
 import page.ProductPage;
 import service.ProductCreator;
 import service.TestDataReader;
 import service.UserCreator;
-import util.TestListener;
 
 public class OrderTest extends CommonConditions {
     @Test

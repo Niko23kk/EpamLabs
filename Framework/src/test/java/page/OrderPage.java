@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class OrderPage extends AbstractPageWithStaticUrl {
 
@@ -116,19 +117,17 @@ public class OrderPage extends AbstractPageWithStaticUrl {
     }
 
     public OrderPage inputCity(String city) {
-        for (int i=0;i<3;i++){
-            cityInput.sendKeys(city.charAt(i)+"");
+        for (int i = 0; i < 3; i++) {
+            cityInput.sendKeys(city.charAt(i) + "");
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        //cityInput.sendKeys(city.substring(0,2));
 
-        //Arrays.asList(city.toCharArray()).stream().skip(3).forEach(element->element.);
-        for (int i=3;i<city.length();i++){
-            cityInput.sendKeys(city.charAt(i)+"");
+        for (int i = 3; i < city.length(); i++) {
+            cityInput.sendKeys(city.charAt(i) + "");
             waitWebElementLocatedBy(By.xpath("//ul[contains(@class,'b-input-select__list')]//li"));
         }
         return this;

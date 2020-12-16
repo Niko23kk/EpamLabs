@@ -8,8 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends AbstractPageWithStaticUrl{
 
-    private final String BASE_URL="https://vans.ru/customer/account/login/";
-
     @FindBy(xpath = "//input[@id='login']")
     private WebElement inputLogin;
 
@@ -31,7 +29,7 @@ public class LoginPage extends AbstractPageWithStaticUrl{
     @Override
     public LoginPage openPage()
     {
-        driver.navigate().to(BASE_URL);
+        driver.navigate().to("https://vans.ru/customer/account/login/");
         return this;
     }
 

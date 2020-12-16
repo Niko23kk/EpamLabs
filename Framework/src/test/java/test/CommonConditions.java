@@ -12,8 +12,8 @@ import java.util.List;
 @Listeners(TestListener.class)
 public class CommonConditions {
     protected WebDriver driver;
-    protected float percentPromocodeSale= Float.parseFloat(TestDataReader.getTestData("test.data.promocode.discount"));
-    protected float percentBuyCartSale=Float.parseFloat(TestDataReader.getTestData("test.data.discountformoresale"));
+    protected float percentPromocodeSale= Float.parseFloat(TestDataReader.getTestData("test.data.promocode.discount"))/100;
+    protected float percentBuyCartSale=Float.parseFloat(TestDataReader.getTestData("test.data.discountformoresale"))/100;
     protected String promoCode = TestDataReader.getTestData("test.data.promocode.code");
 
     @BeforeMethod

@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class OrderPage extends AbstractPageWithStaticUrl {
@@ -115,9 +116,18 @@ public class OrderPage extends AbstractPageWithStaticUrl {
     }
 
     public OrderPage inputCity(String city) {
-        cityInput.sendKeys(city.substring(0,2));
+        for (int i=0;i<3;i++){
+            cityInput.sendKeys(city.charAt(i)+"");
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        //cityInput.sendKeys(city.substring(0,2));
 
-        for (int i=2;i<city.length();i++){
+        //Arrays.asList(city.toCharArray()).stream().skip(3).forEach(element->element.);
+        for (int i=3;i<city.length();i++){
             cityInput.sendKeys(city.charAt(i)+"");
             waitWebElementLocatedBy(By.xpath("//ul[contains(@class,'b-input-select__list')]//li"));
         }
